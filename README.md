@@ -152,7 +152,7 @@ Out of the box
 -------------------
  * Ubuntu 12.04, 14.04 or 16.04 LTS
  * Nginx 1.10
- * PHP 5.3, 5.4, 5.5, 5.6, 7.0 or 7.1
+ * PHP 5.6
  * Composer (package manager)
 
 >Environment depends on the version of PHP.
