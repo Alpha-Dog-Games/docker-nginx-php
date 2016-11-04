@@ -16,21 +16,12 @@ Installation
  * Pull the latest version of the image.
  
 ```bash
-docker pull romeoz/docker-nginx-php
+docker pull alphadoggames/nginx-php-5.6
 ```
-
-or other versions (7.1, 7.0, 5.6, 5.5, 5.4 or 5.3):
-
-```bash
-docker pull romeoz/docker-nginx-php:5.4
-```
-
 Alternately you can build the image yourself.
 
 ```bash
-git clone https://github.com/romeoz/docker-nginx-php.git
-cd docker-nginx-php
-docker build -t="$USER/docker-nginx-php" .
+docker build -t alphadoggames/nginx-php-5.6 .
 ```
 
 Quick Start
@@ -39,7 +30,7 @@ Quick Start
 Run the application container:
 
 ```bash
-docker run --name app -d -p 8080:80 romeoz/docker-nginx-php
+docker run --name app -d -p 8080:80 alphadoggames/nginx-php-5.6
 ```
 
 The simplest way to login to the app container is to use the `docker exec` command to attach a new process to the running container.
@@ -58,7 +49,7 @@ The updated run command looks like this.
 ```bash
 docker run --name app -d -p 8080:80 \
   -v /host/to/path/app:/var/www/app/ \
-  romeoz/docker-nginx-php
+  alphadoggames/nginx-php-5.6
 ```
 
 This will make the development.
@@ -80,7 +71,7 @@ Run the application container:
 docker run --name app -d -p 8080:80 \
   --net pg_net \
   -v /host/to/path/app:/var/www/app/ \
-  romeoz/docker-nginx-php
+  alphadoggames/nginx-php-5.6
 ```
 
 Adding PHP-extension
@@ -93,7 +84,7 @@ You can use one of two choices to install the required php-extensions:
 2. Create your container on based the current. Сontents Dockerfile:
 
 ```
-FROM romeoz/docker-nginx-php:5.6
+FROM alphadoggames/nginx-php-5.6
 
 RUN apt-get update \
     && apt-get install -y php-mongo \
@@ -109,8 +100,8 @@ CMD ["/usr/bin/supervisord"]
 Next step,
 
 ```bash
-docker build -t php-5.6 .
-docker run --name app -d -p 8080:80 php-5.6
+docker build -t alphadoggames/nginx-php-5.6 .
+docker run --name app -d -p 8080:80 alphadoggames/nginx-php-5.6
 ```
 
 >See installed php-extension: `docker exec -it app php -m`
