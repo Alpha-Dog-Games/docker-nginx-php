@@ -41,5 +41,3 @@ RUN chown www-data:www-data ${NGINX_CONF_DIR} -Rf
 WORKDIR ${APP_WORK_DIR}
 
 EXPOSE 80 443
-
-CMD ["/usr/bin/supervisord"]
