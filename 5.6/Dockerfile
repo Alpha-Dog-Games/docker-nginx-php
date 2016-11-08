@@ -9,7 +9,9 @@ ENV LANG=${OS_LOCALE} \
 	NGINX_CONF_DIR=/etc/nginx
 
 COPY ./supervisord.conf /etc/supervisor/conf.d/
-COPY ./app /var/www/app/
+
+# Alpha Dog - do not copy anything into this folder - Git will complain if the folder is not empty
+#COPY ./app /var/www/app/
 
 RUN	\
 	buildDeps='software-properties-common python-software-properties wget' \
@@ -37,7 +39,3 @@ COPY ./configs/app.conf ${NGINX_CONF_DIR}/sites-enabled/app.conf
 COPY ./configs/www.conf /etc/php/5.6/fpm/pool.d/www.conf
 
 WORKDIR /var/www/app/
-
-EXPOSE 80 443
-
-CMD ["/usr/bin/supervisord"]
