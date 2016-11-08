@@ -1,4 +1,4 @@
-FROM alphadoggames/php-5.6
+FROM alphadoggames/phpfpm-5.6
 MAINTAINER George Hornmoen <george@alphadoggames.com>
 
 ENV OS_LOCALE="en_US.UTF-8"
@@ -6,12 +6,10 @@ RUN locale-gen ${OS_LOCALE}
 ENV LANG=${OS_LOCALE} \
 	LANGUAGE=en_US:en \
 	LC_ALL=${OS_LOCALE} \
-	NGINX_CONF_DIR=/etc/nginx
+	NGINX_CONF_DIR=/etc/nginx \
+	APP_WORK_DIR=/var/www/monstrocity/
 
 COPY ./supervisord.conf /etc/supervisor/conf.d/
-
-# Alpha Dog - do not copy anything into this folder - Git will complain if the folder is not empty
-#COPY ./app /var/www/app/
 
 RUN	\
 	buildDeps='software-properties-common python-software-properties wget' \
@@ -25,7 +23,7 @@ RUN	\
 	&& rm -rf  ${NGINX_CONF_DIR}/sites-enabled/* ${NGINX_CONF_DIR}/sites-available/* \
 	# Install supervisor
 	&& apt-get install -y supervisor && mkdir -p /var/log/supervisor \
-	&& chown www-data:www-data /var/www/app/ -Rf \
+	&& chown www-data:www-data ${APP_WORK_DIR} -Rf \
 	# Cleaning
 	&& apt-get purge -y --auto-remove $buildDeps \
 	&& apt-get autoremove -y && apt-get clean \
@@ -36,6 +34,9 @@ RUN	\
 
 COPY ./configs/nginx.conf ${NGINX_CONF_DIR}/nginx.conf
 COPY ./configs/app.conf ${NGINX_CONF_DIR}/sites-enabled/app.conf
-COPY ./configs/www.conf /etc/php/5.6/fpm/pool.d/www.conf
 
-WORKDIR /var/www/app/
+RUN chown www-data:www-data ${NGINX_CONF_DIR} -Rf
+
+WORKDIR ${APP_WORK_DIR}
+
+EXPOSE 80 443
