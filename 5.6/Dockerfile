@@ -20,6 +20,7 @@ RUN	\
 	&& echo "deb-src http://nginx.org/packages/ubuntu/ xenial nginx" | tee -a /etc/apt/sources.list \
 	&& apt-get update \
 	&& apt-get install -y nginx \
+	&& apt-get install -y vim \
 	&& rm -rf  ${NGINX_CONF_DIR}/sites-enabled/* ${NGINX_CONF_DIR}/sites-available/* \
 	# Install supervisor
 	&& apt-get install -y supervisor && mkdir -p /var/log/supervisor \
@@ -40,3 +41,5 @@ RUN chown www-data:www-data ${NGINX_CONF_DIR} -Rf
 WORKDIR ${APP_WORK_DIR}
 
 EXPOSE 80 443
+
+CMD ["/usr/bin/supervisord"]
