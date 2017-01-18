@@ -1,4 +1,4 @@
-FROM 640373737790.dkr.ecr.us-east-1.amazonaws.com/php-5.6-debug
+FROM 640373737790.dkr.ecr.us-east-1.amazonaws.com/php-5.6-release
 MAINTAINER George Hornmoen <george@alphadoggames.com>
 
 ENV OS_LOCALE="en_US.UTF-8"
